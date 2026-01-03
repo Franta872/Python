@@ -79,6 +79,7 @@ correct = 0
 all = 0
 while True:
     key, value = random.choice(list(prvky.items()))
+    
     if random.randint(0, 1) == 1:
         print("Název prvku: " + value["N"])
         answer = input("Zadej značku prvku: ")
@@ -89,7 +90,7 @@ while True:
         result = random.choice(["správně!", "správně! Dobrá práce (:", "dobře!"])
         all += 1
     elif key.lower().strip() == answer.lower().strip():
-        result = random.choise(["správně, ale pozor na velká a malá písmena.", "dobře, ale pozor na velká a malá písmena. Občas to nemusí uznat |:"])
+        result = random.choice(["správně, ale pozor na velká a malá písmena.", "dobře, ale pozor na velká a malá písmena. Občas to nemusí uznat |:"])
         all += 1
     elif key.strip() == "":
         result = random.choice(["špatně. Nezadal jsi nic!?", "... nezadal jsi nic, takže asi špatně."])
