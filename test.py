@@ -1,3 +1,7 @@
 # test
+import difflib
 
-print(0.6 <= 0.8 <= 0.8)
+a = "thallium"
+b = "thalium"
+
+print(difflib.SequenceMatcher(None, a, b).ratio())

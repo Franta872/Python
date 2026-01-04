@@ -74,7 +74,7 @@ prvky = {
 }
 prvky_random = prvky.copy()
 
-print("Toto je program na procvičení prvků z chemie. Bude zadávat jejich název podle značky, nebo naopak.")
+print("Toto je program na procvičení prvků z chemie. Budeš zadávat jejich název podle značky, nebo naopak.")
 input()
 cs.clear("line", 2)
 
@@ -116,12 +116,12 @@ while True:
         all += 1
         nothing += 1
         show_answer = False
-    elif difflib.SequenceMatcher(None, (key.lower() if question_type != "značka" else value["N"].lower()), answer.strip()).ratio() >= 0.85:
+    elif difflib.SequenceMatcher(None, (key.lower() if question_type != "značka" else value["N"].lower()), answer.strip().lower()).ratio() >= 0.85:
         result = random.choice([f"... asi {cs.bold('správně')}, ale máš tam překlep. Pozor na to."])
         all += 1
         correct += 1
         show_answer = True
-    elif 0.4 >= difflib.SequenceMatcher(None, (key.lower() if question_type != "značka" else value["N"].lower()), answer.strip()).ratio() >= 0.85:
+    elif 0.4 >= difflib.SequenceMatcher(None, (key.lower() if question_type != "značka" else value["N"].lower()), answer.strip().lower()).ratio() >= 0.85:
         result = random.choice([f"... spíše {cs.bold('špatně')}, máš tam totiž překlep. Pozor na to."])
         all += 1
         wrong += 1
