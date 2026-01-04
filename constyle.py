@@ -1,5 +1,7 @@
 # library for styling text output, but only in terminal
 
+import unicodedata
+
 esc = "\033"
 reset= esc+"[0m"
 
@@ -173,13 +175,15 @@ def letters(text):
             line4 += l+bold("IN")+l+bold("THIS")+l
             line5 += l+bold("LIBRARY")+l
 
-
-
-
-
-
     print(line1)
     print(line2)
     print(line3)
     print(line4)
     print(line5)
+
+def remove_diacritics(text):
+    normalized = unicodedata.normalize("NFD", text)
+    return "".join(
+        char for char in normalized
+        if unicodedata.category(char) != "Mn"
+    )
