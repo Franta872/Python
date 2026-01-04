@@ -1,6 +1,7 @@
 import random
 import time
 import constyle as cs
+import difflib
 
 prvky = {
 "H": { "N": "Vodík", "lat": "Hydrogenium", "Z": 1 },
@@ -73,9 +74,9 @@ prvky = {
 }
 prvky_random = prvky.copy()
 
-# print("Toto je program na procvičení prvků z chemie. Bude zadávat jejich název podle značky, nebo naopak.")
-# time.sleep(6)
-# cs.clear("line", 1)
+print("Toto je program na procvičení prvků z chemie. Bude zadávat jejich název podle značky, nebo naopak.")
+input()
+cs.clear("line", 2)
 
 nothing = 0
 wrong = 0
@@ -115,6 +116,16 @@ while True:
         all += 1
         nothing += 1
         show_answer = False
+    elif difflib.SequenceMatcher(None, (key.lower() if question_type != "značka" else value["N"].lower()), answer.strip()).ratio() >= 0.85:
+        result = random.choice([f"... asi {cs.bold('správně')}, ale máš tam překlep. Pozor na to."])
+        all += 1
+        correct += 1
+        show_answer = True
+    elif 0.4 >= difflib.SequenceMatcher(None, (key.lower() if question_type != "značka" else value["N"].lower()), answer.strip()).ratio() >= 0.85:
+        result = random.choice([f"... spíše {cs.bold('špatně')}, máš tam totiž překlep. Pozor na to."])
+        all += 1
+        wrong += 1
+        show_answer = True
     else:
         result = random.choice([f"{cs.bold('blbě')}", f"{cs.bold('hrozně')}", f"{cs.bold('špatně')}", f"prostě {cs.bold('hrozně')}", f"... z tebe {cs.bold('chemik nebude')}"])
         show_answer = True
@@ -124,17 +135,16 @@ while True:
     print(random.choice([f"Odpověď je", f"Tvá odpověď je", f"Tato odpověď je", f"Tentokrát je to"]), result)
     if show_answer:
         print(f"Tvá odpověď:     {cs.bold(cs.underline(answer))}")
-    print()
-    print(f"Značka:          {cs.color((cs.bold(cs.underline(key)) if question_type != 'značka' else cs.bold(key)), 'blue')}")
-    print(f"Název:           {cs.color((cs.bold(cs.underline(value['N'])) if question_type != 'název' else cs.bold(value['N'])), 'blue')}")
-    print(f"Latiský název:   {cs.color(value['lat'], 'red')}")
-    print(f"Protonové číslo: {cs.color(value['Z'], 'red')}")
+    print(f"""\nZnačka:          {cs.color((cs.bold(cs.underline(key)) if question_type != 'značka' else cs.bold(key)), 'blue')}
+Název:           {cs.color((cs.bold(cs.underline(value['N'])) if question_type != 'název' else cs.bold(value['N'])), 'blue')}
+Latiský název:   {cs.color(value['lat'], 'red')}
+Protonové číslo: {cs.color(value['Z'], 'red')}""")
     again = input(cs.italic('\nZnova? ("n" pro ne, cokoliv jiného pro ano)\nPro zobrazení výsledků zadejte "výsledky"\n'))
-    if cs.remove_diacritics(again.strip().lower()) in ["ne", "no", "n", "false", "0", "nain", "):", "exit", "ven", "pryc", "out", "nashledanou"]:
+    if cs.remove_diacritics(again.strip().lower()) in ["ne", "no", "n", "false", "0", "):", "exit", "ven", "pryc", "out", "nashledanou"]:
         cs.clear("line", 4)
         break
     elif cs.remove_diacritics(again.strip().lower()) == "vysledky":
-        cs.clear("line", 11 if show_answer else 9)
+        cs.clear("line", 11 if show_answer else 10)
         print(f"""Celkový počet prvků: {cs.bold(all)}
 {cs.color('Prvky špatně:', 'red')}        {cs.bold(wrong)}
 {cs.color('Prvky správně:', 'green')}       {cs.bold(correct)}

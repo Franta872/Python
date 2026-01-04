@@ -1,8 +1,3 @@
 # test
 
-import unicodedata
-
-dict = {"ne": "ano"}
-
-if not dict:
-    print("(:")
+print(0.6 <= 0.8 <= 0.8)
