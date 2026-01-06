@@ -169,11 +169,11 @@ def letters(text):
             line5 += "│ "
         else:
             l = letter
-            line1 += l+l+bold("THIS")+l+l+l
-            line2 += l+bold("SYMBOL")+l+l
-            line3 += l+bold("IS")+l+bold("NOT")+l+l
-            line4 += l+bold("IN")+l+bold("THIS")+l
-            line5 += l+bold("LIBRARY")+l
+            line1 += l*2+underline(bold("THIS"))+l*3
+            line2 += l+underline(bold("SYMBOL"))+l*2
+            line3 += l+underline(bold("IS"))+l+underline(bold("NOT"))+l*2
+            line4 += l+underline(bold("IN"))+l+underline(bold("THIS"))+l
+            line5 += l+underline(bold("LIBRARY"))+l
 
     print(line1)
     print(line2)

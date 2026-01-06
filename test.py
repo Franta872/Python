@@ -1,7 +1,4 @@
 # test
-import difflib
+import constyle as cs
 
-a = "thallium"
-b = "thalium"
-
-print(difflib.SequenceMatcher(None, a, b).ratio())
+cs.letters("a1;2(:")
