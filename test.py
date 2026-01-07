@@ -1,4 +1,7 @@
 # test
 import constyle as cs
+import random
 
-cs.letters("a1;2(:")
+tuple_test = ("Ne", "ANO")
+
+print(f"{tuple_test=}".split("=")[0])
