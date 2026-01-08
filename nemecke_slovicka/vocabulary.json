@@ -1,0 +1,14 @@
+{
+    "lekce_2.3": {
+        "dům": {
+            "de": "Haus",
+            "gender": "das",
+            "description": null
+        },
+        "jít": {
+            "de": "gehen",
+            "gender": null,
+            "description": null
+        }
+    }
+}

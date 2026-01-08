@@ -1,7 +1,11 @@
 # test
 import constyle as cs
 import random
+import os
+import time
+import difflib
 
-tuple_test = ("Ne", "ANO")
+answer = "ahoj"
+test = ["ahoj", "Ahoj"]
 
-print(f"{tuple_test=}".split("=")[0])
+print(max(map(lambda x: difflib.SequenceMatcher(None, answer.lower(), x).ratio(), test)))
