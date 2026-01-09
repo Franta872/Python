@@ -5,7 +5,6 @@ import os
 import time
 import difflib
 
-answer = "ahoj"
-test = ["ahoj", "Ahoj"]
+test = "Ahoj;Ne"
 
-print(max(map(lambda x: difflib.SequenceMatcher(None, answer.lower(), x).ratio(), test)))
+print(test.split(";"))

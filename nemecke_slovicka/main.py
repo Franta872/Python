@@ -4,43 +4,64 @@ import difflib
 import constyle as cs
 import vocabulary_selector as vc
 
-question_type, cz, de_gender, de_word, de_visi, description = vc.choose_word()
-print(question_type, cz, de_gender, de_word, de_visi, description, sep="\n")
-input()
 
 while True:
-    cz, de = random.choice(list(vocabulary.items()))
-    cz_visi, de_visi = map(lambda x: x if type(x) == str else ", ".join(x), [cz, de])
-
-    question_type = random.choice(["de", "cz"])
+    question_type, cz, cz_visi, de, de_gender, de_word, de_visi, description = vc.choose_word()
+    #print(question_type, cz, de, de_gender, de_word, de_visi, description, sep="\n")    
+    
     if question_type == "de":
         print("němčina:", de_visi)
         answer = input("český překlad: ").strip()
-    else:
+    elif question_type == "cz":
         print("čeština:", cz_visi)
         answer = input("německý překlad: ").strip()
     cs.clear("line", 2)
 
-    long_var = de if question_type != "de" else cz
-    long_var = [long_var, "↔"] if type(long_var) == str else long_var
-    lower_long_var = tuple(map(lambda x: x.lower(), long_var))
-    similarity = max(map(lambda x: difflib.SequenceMatcher(None, answer.lower(), x).ratio(), lower_long_var))
-    
+    lang_var = de_word if question_type != "de" else cz
+
+    similarity = max(difflib.SequenceMatcher(None, answer.lower(), (de_word[x] if question_type != "de" else cz[x]).lower()).ratio() for x in range(len(de_word)))
+    if question_type == "de":
+        de_gender_index = lang_var.index(de_gender.index(similarity))
+        print(similarity, de_gender_index)
+    else:
+        de_gender_index = ""
+
+    #if question_type != "de":
+    #    similarity = max()
+    #else:
+    #    similarity = max(difflib.SequenceMatcher(None, answer.lower(), cz[x].lower()).ratio() for x in range(len(de_word)))
+
+    if de_gender == None:
+        answer_gender = ""
+    else:
+        while True:
+            answer_gender = input("Zadej rod slova(der, die, das):").lower().strip()
+            if answer_gender in ["der", "die", "das"]:
+                print("Zadejte pouze: der, die, das")
+                cs.clear("line", 2)
+                break
+            else:
+                cs.clear("line", 1)
+                continue
+
     show_answer = False
-    if answer in long_var:
+    if answer in lang_var:
         result = "správně!"
     elif "" == answer:
         result = "špatně, nic jsi nenapsal."
-    elif answer.lower() in map(lambda x: x.lower(), lower_long_var):
+    elif answer.lower() in [x.lower() for x in lang_var]:
         result = "správně, ale velikost písmen dělá problémy |:"
         show_answer = True
-    elif cs.remove_diacritics(answer.lower()) in map(lambda x: cs.remove_diacritics(x), lower_long_var):
+    elif cs.remove_diacritics(answer) in [cs.remove_diacritics(x) for x in lang_var]:
         result = "asi ještě správně, ale diakritika dělá problémy."
+        show_answer = True
+    elif cs.remove_diacritics(answer.lower()) in [cs.remove_diacritics(x.lower()) for x in lang_var]:
+        result = "špatně, je tu problém ve velikosti písmen a ani diakritika tam není."
         show_answer = True
     elif similarity >= 0.8:
         result = "spíše správně, ale je tam gramatická chyba."
         show_answer = True
-    elif 0.65 <= similarity < 0.8:
+    elif 0.7 <= similarity < 0.8:
         result = "spíše špatně, ale je to podobné výsledku."
     else:
         result = "prostě špatně!"
@@ -50,7 +71,8 @@ while True:
     cz_visi = cs.bold(cs.color(cs.underline(cz_visi) if question_type != "cz" else cz_visi, "red"))
     de_visi = cs.bold(cs.color(cs.underline(de_visi) if question_type != "de" else de_visi, "red"))
     
-    print(f"Výsledek je {result}")
+    print(f"Rod je ")
+    print(f"Slovíčko je {result}")
     print("Tvá odpověď: " + answer + "\n" if show_answer else "")
     print(f"Slovo německy:  {de_visi}\nSlovo česky:    {cz_visi}\n")
     
