@@ -26,15 +26,12 @@ def clear(func="line", num=1):
             print(f"{esc}[1A{esc}[2K", end="", flush=True)
     elif func == "screen":
         #print(f"{esc}[H{esc}[2J", end="", flush=True)
-        os.system("cls")
+        os.system("cls" if os.name == "nt" else "clear")
     elif func == "sym":
         print(f"{esc}[{num}D{esc}[{num}P", end="", flush=True)
 
-def bold(text, bold=True):
-    if bold:
-        return esc + "[1m" + str(text) + reset
-    else:
-        return str(text) + reset
+def bold(text, enable=True):
+    return f"{esc}[1m{text}{reset}" if enable else str(text)
 
 # vypíše to jen prázdný řádek, tak to tam asi dávat nebudu
 # def weak(text, weak=True):

@@ -23,12 +23,12 @@ def choose_word():
     cz = cz.split(";") if ";" in cz else [cz]
     cz_visi = ", ".join(cz)
     de_visi = []
-    if de.get("gender") == None:
+    if de.get("gender") is None:
         for word in de.get("de"):
             de_visi.append(word)
     else:
         for x in range(len(de.get("de"))):
-            de_visi.append((de.get("gender"))[x] + " " + (de.get("de"))[x])
+            de_visi.append((de.get("gender")) + " " + (de.get("de"))[x])
     de_visi = ", ".join(de_visi)
     de_gender = de.get("gender")
     de_word = de.get("de")

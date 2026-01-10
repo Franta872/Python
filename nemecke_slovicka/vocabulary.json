@@ -2,7 +2,7 @@
     "lekce_2.3": {
         "dům": {
             "de": ["Haus"],
-            "gender": ["das"],
+            "gender": "das",
             "description": null
         },
         "jít;chodit": {
