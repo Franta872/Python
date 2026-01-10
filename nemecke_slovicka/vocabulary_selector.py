@@ -6,39 +6,38 @@ import constyle as cs
 
 with open(f"{Path(__file__).parent}/vocabulary.json", "r", encoding="utf-8") as f:
     slovicka = json.load(f)
-unit_2_3 = slovicka.get("lekce_2.3")
+unit_2_3 = slovicka.get("strana_28")
 
+question_type = None
+word = None
 cz = None
-de = None
 de_visi = None
 cz_visi = None
+de = None
 de_gender = None
-de_word = None
 description = None
 
 def choose_word():
     question_type = random.choice(["cz", "de"])
 
-    cz, de = random.choice(list(unit_2_3.items()))
-    cz = cz.split(";") if ";" in cz else [cz]
+    word = random.choice(unit_2_3)
+    cz = word.get("cz")
     cz_visi = ", ".join(cz)
     de_visi = []
-    if de.get("gender") is None:
-        for word in de.get("de"):
-            de_visi.append(word)
+    de_gender = word.get("gender")
+    de = word.get("de")
+    if de_gender is None:
+        for item in de:
+            de_visi.append(item)
     else:
-        for x in range(len(de.get("de"))):
-            de_visi.append((de.get("gender")) + " " + (de.get("de"))[x])
+        for x in range(len(word.get("de"))):
+            de_visi.append(word.get("gender") + " " + (word.get("de"))[x])
     de_visi = ", ".join(de_visi)
-    de_gender = de.get("gender")
-    de_word = de.get("de")
-    description = de.get("description")
+    description = word.get("description")
 
-    return question_type, cz, cz_visi, de, de_gender, de_word, de_visi, description
+    return question_type, cz, cz_visi, de, de_gender, de_visi, description
 
 
 
 if __name__ == "__main__":
-    print(cz)
-    print(de)
-    print(de_visi)
+    print(choose_word())

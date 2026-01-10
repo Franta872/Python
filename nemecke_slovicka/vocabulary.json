@@ -1,14 +1,16 @@
 {
-    "lekce_2.3": {
-        "dům": {
-            "de": ["Haus"],
-            "gender": "das",
-            "description": null
-        },
-        "jít;chodit": {
-            "de": ["gehen"],
-            "gender": null,
-            "description": null
-        }
+  "strana_28":[
+    {
+      "cz":[
+        "snad",
+        "to",
+        "už funguje"
+      ],
+      "de":[
+        "fungieren"
+      ],
+      "gender":"dasen",
+      "description":null
     }
+  ]
 }

@@ -4,10 +4,9 @@ import difflib
 import constyle as cs
 import vocabulary_selector as vc
 
-
 while True:
-    question_type, cz, cz_visi, de, de_gender, de_word, de_visi, description = vc.choose_word()
-    #print(question_type, cz, de, de_gender, de_word, de_visi, description, sep="\n")    
+    question_type, cz, cz_visi, de, de_gender, de_visi, description = vc.choose_word()
+    #print(question_type, cz, de, de_gender, de_visi, description, sep="\n")    
     
     print((print("němčina: " + de_visi) if description is None else f"němčina ({description}): " + de_visi)  if question_type == "de" else "čeština: "+cz_visi)
     
@@ -30,8 +29,8 @@ while True:
     elif question_type == "cz":
         answer = input("německý překlad: ").strip()
 
-    lang_var = de_word if question_type != "de" else cz
-    similarity = max(difflib.SequenceMatcher(None, answer.lower(), (de_word[x] if question_type != "de" else cz[x]).lower()).ratio() for x in range(len(de_word)))
+    lang_var = de if question_type != "de" else cz
+    similarity = max(difflib.SequenceMatcher(None, answer.lower(), (de[x] if question_type != "de" else cz[x]).lower()).ratio() for x in range(len(de)))
 
     show_answer = False
     if answer in lang_var:
