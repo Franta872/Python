@@ -19,6 +19,7 @@ unit_2_3 = []
 for strana in lekce.values():
     for slovo in strana:
         unit_2_3.append(slovo)
+unit_2_3_copy = unit_2_3.copy()
 
 #question_type = None
 #word = None
@@ -33,7 +34,12 @@ for strana in lekce.values():
 def choose_word():
     question_type = random.choice(["cz", "de"])
 
-    word = random.choice(unit_2_3)
+    global unit_2_3_copy
+    if not unit_2_3_copy:
+        unit_2_3_copy = unit_2_3.copy()
+    word = random.choice(unit_2_3_copy)
+    unit_2_3_copy.remove(word)
+
     cz = word.get("cz")
     cz_visi = cs.bold(", ".join(cz))
     de_visi = []

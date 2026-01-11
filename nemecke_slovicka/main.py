@@ -33,8 +33,10 @@ while True:
             result_gender = f"{random.choice(['špatně, nic jsi nenapsal. Mel být', '... asi špatně, nic jsi nezadal. Mel být'])} {de_gender_visi}"
             answer_gender = "–"
         else:
-            result_gender = "špatně! Měl být " + de_gender
+            result_gender = f"{random.choice(['špatně! Měl být', 'nesprávně! Měl být'])} {de_gender_visi}"
             show_answer = True
+    else:
+        answer_gender = ""
 
     if question_type == "de":
         answer = input("český překlad: ").strip()
@@ -45,26 +47,26 @@ while True:
     similarity = max(difflib.SequenceMatcher(None, answer.lower(), (de[x] if question_type != "de" else cz[x]).lower()).ratio() for x in range(len(de)))
 
     if answer in lang_var:
-        result = "správně!"
+        result = random.choice(["správně!", "výborně!", "dokonalé!"])
     elif "" == answer:
-        result = "špatně, nic jsi nenapsal."
+        result = random.choice(["špatně, nic jsi nenapsal.", "... nic jsi nenapsal", "... nic = chyba"])
     elif answer.lower() in [x.lower() for x in lang_var]:
-        result = "správně, ale velikost písmen dělá problémy |:"
+        result = random.choice(["správně, ale velikost písmen dělá problémy |:", "asi jo, ale ta velikost písmen."])
         show_answer = True
     elif cs.remove_diacritics(answer) in [cs.remove_diacritics(x) for x in lang_var]:
-        result = "asi ještě správně, ale diakritika dělá problémy."
+        result = random.choice(["asi ještě správně, ale diakritika dělá problémy.", "asi dobře, ale ta diakritika."])
         show_answer = True
     elif cs.remove_diacritics(answer.lower()) in [cs.remove_diacritics(x.lower()) for x in lang_var]:
-        result = "špatně, je tu problém ve velikosti písmen a ani diakritika tam není."
+        result = random.choice(["špatně, je tu problém ve velikosti písmen a ani diakritika tam není.", "špatně. problém = neexistující diakritika a správná velikost písmen."])
         show_answer = True
-    elif similarity >= 0.8:
-        result = "spíše správně, ale je tam gramatická chyba."
+    elif similarity >= 0.87:
+        result = random.choice(["spíše správně, ale je tam gramatická chyba.", "asi správně, ale je tam malá chyba."])
         show_answer = True
-    elif 0.7 <= similarity < 0.8:
-        result = "spíše špatně, ale je to podobné výsledku."
+    elif 0.75 <= similarity < 0.87:
+        result = random.choice(["spíše špatně, ale je to podobné výsledku.", "asi špatně, ale je to podobné."])
         show_answer = True
     else:
-        result = "prostě špatně!"
+        result = random.choice(["prostě špatně!", "špatně!", "hrozně!", "nesprávně!"])
         show_answer = True
 
     #cz_visi, de_visi = map(lambda y: cs.bold(cs.color(cs.underline(y) if question_type == f"{y=}".split("_")[0] else y, "red")), [cz_visi, de_visi])
