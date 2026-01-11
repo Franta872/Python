@@ -5,24 +5,36 @@ import constyle as cs
 import vocabulary_selector as vc
 
 while True:
-    question_type, cz, cz_visi, de, de_gender, de_visi, description = vc.choose_word()
+    question_type, cz, cz_visi, de, de_gender, de_gender_visi, de_visi, description = vc.choose_word()
     #print(question_type, cz, de, de_gender, de_visi, description, sep="\n")    
     
-    print((print("němčina: " + de_visi) if description is None else f"němčina ({description}): " + de_visi)  if question_type == "de" else "čeština: "+cz_visi)
-    
+    #print(("němčina: " + de_visi) if description is None else f"němčina ({description}): " + de_visi  if question_type == "de" else "čeština: "+cz_visi)
+    if description is None and question_type == "de":
+        print("němčina: " + cs.bold(de_visi))
+    elif description is not None and question_type == "de":
+        print(f"němčina ({description}): " + cs.bold(de_visi))
+    elif question_type == "cz":
+        print("čeština: " + cs.bold(cz_visi))
+
+    show_answer = False
     result_gender = None
+    answer_gender = None
     if question_type != "de" and de_gender != None:
         while True:
-            answer_gender = input("Zadej rod slova (der, die, das): ").lower().strip()
-            if answer_gender in ["der", "die", "das"]:
+            answer_gender = input(f"Zadej {cs.bold('rod slova')} ({cs.color('der', 'blue')}, {cs.color('die', 'red')}, {cs.color('das', 'green')}): ").lower().strip()
+            if answer_gender in ["der", "die", "das", ""]:
                 break
             else:
                 cs.clear("line", 1)
                 continue
         if answer_gender == de_gender:
-            result_gender = "správně!"
+            result_gender = random.choice(["správně!", "dobře!", "velmi dobře!"])
+        elif answer_gender == "":
+            result_gender = f"{random.choice(['špatně, nic jsi nenapsal. Mel být', '... asi špatně, nic jsi nezadal. Mel být'])} {de_gender_visi}"
+            answer_gender = "–"
         else:
             result_gender = "špatně! Měl být " + de_gender
+            show_answer = True
 
     if question_type == "de":
         answer = input("český překlad: ").strip()
@@ -32,7 +44,6 @@ while True:
     lang_var = de if question_type != "de" else cz
     similarity = max(difflib.SequenceMatcher(None, answer.lower(), (de[x] if question_type != "de" else cz[x]).lower()).ratio() for x in range(len(de)))
 
-    show_answer = False
     if answer in lang_var:
         result = "správně!"
     elif "" == answer:
@@ -51,18 +62,20 @@ while True:
         show_answer = True
     elif 0.7 <= similarity < 0.8:
         result = "spíše špatně, ale je to podobné výsledku."
+        show_answer = True
     else:
         result = "prostě špatně!"
         show_answer = True
 
     #cz_visi, de_visi = map(lambda y: cs.bold(cs.color(cs.underline(y) if question_type == f"{y=}".split("_")[0] else y, "red")), [cz_visi, de_visi])
-    cz_visi = cs.bold(cs.color(cs.underline(cz_visi) if question_type != "cz" else cz_visi, "red"))
-    de_visi = cs.bold(cs.color(cs.underline(de_visi) if question_type != "de" else de_visi, "red"))
+    cz_visi = cs.bold(cs.underline(cz_visi) if question_type != "cz" else cz_visi)
+    de_visi = cs.bold(cs.underline(de_visi) if question_type != "de" else de_visi)
     cs.clear("line", 3)
 
-    print(f"Rod je {result_gender}") if result_gender != None else None
-    print(f"Slovíčko je {result}")
-    print("Tvá odpověď: " + answer + "\n" if show_answer else "")
+    if result_gender is not None:
+        print(f"Rod je {result_gender}")
+    print(f"{random.choice(['Slovíčko je', 'Tentokrát to je', 'Je to'])} {result}")
+    print(f"Tvá odpověď: {answer_gender if de_gender is not None else ''} {answer}\n" if show_answer else "")
     print(f"Slovo německy:  {de_visi}\nSlovo česky:    {cz_visi}\n")
     
     again = input("Znova? (ne pro ne)\n")
