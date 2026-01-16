@@ -4,7 +4,6 @@ import random
 import os
 import time
 import difflib
+import string
 
-test = "Ahoj;Ne"
-
-print(test.split(";"))
+print("abCUIHIUGuhiuh".capitalize())
