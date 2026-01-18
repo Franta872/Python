@@ -5,7 +5,7 @@ while True:
     computer = random.choice(options)
     human = None
     while True:
-        human = input(f"Enter {", ".join(options)}: ").strip().lower()
+        human = input(f"Enter {', '.join(options)}: ").strip().lower()
         if human not in options:
             print(f"{human} is not valid.")
             continue

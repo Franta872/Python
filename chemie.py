@@ -1,6 +1,6 @@
 import random
 import time
-import constyle as cs
+import constyle.constyle as cs
 import difflib
 
 prvky = {

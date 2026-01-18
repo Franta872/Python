@@ -186,3 +186,16 @@ def remove_diacritics(text):
         char for char in normalized
         if unicodedata.category(char) != "Mn"
     )
+
+__all__ = [
+    "color",
+    "clear",
+    "bold",
+    "italic",
+    "underline",
+    "scrossed_out",
+    "cursor",
+    "newLine",
+    "letters",
+    "remove_diacritics"
+]

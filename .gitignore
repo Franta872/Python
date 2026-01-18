@@ -1,0 +1,15 @@
+# od ChatGPT
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Python packaging
+*.egg-info/
+
+# VS Code
+.vscode/
+
+# OS bordel
+.DS_Store
+Thumbs.db
