@@ -9,14 +9,21 @@ last_free = False
 
 def game():
     waiting = 0
+    symbols_before = random.choices(winnings, weights=[5, 4, 3, 2, 2, 1], k=3)
+    symbols = random.choices(winnings, weights=[5, 4, 3, 2, 2, 1], k=3)
+    symbols_after = random.choices(winnings, weights=[5, 4, 3, 2, 2, 1], k=3)
     while True:
-        symbols = random.choices(winnings, weights=[5, 4, 3, 2, 2, 1], k=3)
+        symbols_after = symbols.copy()
+        symbols = symbols_before.copy()
+        symbols_before = random.choices(winnings, weights=[5, 4, 3, 2, 2, 1], k=3)
         print("*"*40)
-        print(f'{"  |  ".join(symbols):^40}')
+        print(f'{"  |  ".join(symbols_before):^40}')
+        print(f'{"--->"+"  |  ".join(symbols)+"<---":^40}')
+        print(f'{"  |  ".join(symbols_after):^40}')
         print("*"*40)
         time.sleep(waiting)
         if waiting < 0.48:
-            cs.clear("line", 3)
+            cs.clear("line", 5)
             waiting += 0.02
             continue
         else:
@@ -54,7 +61,7 @@ def check(sym):
     print(sentence, end="\n\n")
 
     input("\nZmáčkněte Enter pro přesun do menu: ")
-    cs.clear("line", 8)
+    cs.clear("line", 10)
     return winning
 
 while True:
