@@ -6,4 +6,9 @@ import time
 import difflib
 import string
 
-print(",".join("ahoj"))
+class phone:
+    def __init__(self, brand, model, color, storage):
+          pass
+    
+    def description(self):
+            print("brand: ", self.brand)
