@@ -8,4 +8,5 @@ import string
 import itertools
 import math
 
-# try ti write something with the super method, please!!!
+if 8.00000 == 8:
+    print(True)
