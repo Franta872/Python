@@ -7,6 +7,10 @@ import difflib
 import string
 import itertools
 import math
+import unicodedata
 
-if 8.00000 == 8:
-    print(True)
+splitText = "tentoTextBudeRozdělenPoDvouAsiDoufám"
+print(len(splitText))
+range_int = 2
+for y in [(x, x+range_int) for x in range(0, len(splitText)//range_int*range_int, range_int)]:
+    print(splitText[y[0]:y[1]], end=" ")
