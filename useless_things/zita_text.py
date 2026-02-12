@@ -15,6 +15,13 @@ lower_text_percent = 95           # o kolik procent to zemnší text
 reshuffling = True                # přehazování symbolů
 reshuffling_per_symbols = 15      # po kolika symbolech se mají znaky přehazovat
 
+adding_spaces = True              # přidávání dvojích mezer
+adding_spaces_percent = 28        # kolik mezer se změní na 2 v procentech
+
+number_change = True              # změna cifer číslic (odečtení a přičtení)
+number_change_percent = 38       # šance na změnu cifer číslic
+number_change_max = 1             # max rozsah změny cifer číslic,
+                                  # např. když je 2, tak číslo 5 může být 3 až 7
 
 
 input_text = input("Zadejte text: ").strip()
@@ -63,5 +70,28 @@ if reshuffling:
         text_reshuffled[index] = a
 
     input_text = "".join(text_reshuffled)
+
+# Náhodné přidávání mezer, protože to vypadá hůř a lidi to dělají (:
+if adding_spaces:
+    text_add_space = ""
+    for symbol in range(len(input_text)):
+        if input_text[symbol] == " " and \
+        not (input_text[symbol+1] == " " if symbol != 0 else True) and \
+        percentage(adding_spaces_percent):
+            text_add_space += "  "
+        else:
+            text_add_space += input_text[symbol]
+    input_text = text_add_space
+
+# Občas se i čísla dají napsat špatně a kontrola je přece zbytečná
+if number_change:
+    text_number_change = ""
+    for symbol in input_text:
+        if symbol.isdigit() and percentage(number_change_percent):
+            text_number_change += str(abs(random.randint(int(symbol)-number_change_max, int(symbol)+number_change_max)))
+        else:
+            text_number_change += symbol
+    input_text = text_number_change
+
 
 print(input_text)
