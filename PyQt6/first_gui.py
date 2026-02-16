@@ -23,12 +23,12 @@ class MainWindow(QMainWindow):
         central_widget = QWidget()
         self.setCentralWidget(central_widget)
 
-        self.label1 = QLabel("#1")
-        self.label2 = QLabel("#2")
-        self.label3 = QLabel("#3")
-        self.label4 = QLabel("#4")
-        self.label5 = QLabel("#5")
-        self.button = QPushButton("Click me!")
+        self.label1 = QLabel("#1", self)
+        self.label2 = QLabel("#2", self)
+        self.label3 = QLabel("#3", self)
+        self.label4 = QLabel("#4", self)
+        self.label5 = QLabel("#5", self)
+        self.button = QPushButton("Click me!", self)
         self.button.setStyleSheet("background-color: orange;"
                                   "font-size: 30px;")
         self.button.clicked.connect(self.clicked)
