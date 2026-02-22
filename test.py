@@ -1,28 +1,22 @@
-# test
+# test file
+
 #import constyle as cs
 #import random
-#import os
 #import time
 #import difflib
 #import string
 #import itertools
 #import math
 #import unicodedata
+#import os
+#import json
+#from pathlib import Path
+#import csv
+import datetime
 
-def sirup(func):
-    def wrapper(*args, **kwargs):
-        print("sirup added")
-        func(*args, **kwargs)
-    return wrapper
-def sprinkles(func):
-    def wrapper(*args, **kwargs):
-        print("sprinkles added")
-        func(*args, **kwargs)
-    return wrapper
+date = datetime.date(2026, 2, 23)
 
-@sprinkles
-@sirup
-def ice_cream(flavour):
-    print(flavour, "ice cream (:")
+timeanddate = datetime.datetime.now()
+timeanddate = timeanddate.strftime("%H:%M:%S, %Y-%m-%d")
 
-ice_cream("vanilla")
+print(timeanddate)
