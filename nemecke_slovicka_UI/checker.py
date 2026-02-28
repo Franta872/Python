@@ -15,25 +15,21 @@ def word_getter(question_type, cz_visi, de_visi, description):
     elif question_type == "cz":
         return "čeština: " + bold(cz_visi)
 
-def answer_checker(answer, question_type, cz, cz_visi, de, de_gender, de_gender_visi, de_visi):
+def answer_checker(answer_gender, answer, question_type, cz, cz_visi, de, de_gender, de_gender_visi, de_visi):
     correct_asnwer = True
     # gender
     show_answer = False
     result_gender = None
-    answer_gender = None
     if question_type != "de" and de_gender != None:
-        if answer_gender == de_gender:
+        if answer_gender.lower() == de_gender:
             result_gender = random.choice(["správně!", "dobře!", "velmi dobře!"])
         elif answer_gender == "":
             result_gender = f"{random.choice(['špatně, nic jsi nenapsal. Mel být', '... asi špatně, nic jsi nezadal. Mel být'])} {de_gender_visi}"
-            answer_gender = "–"
             correct_asnwer = False
         else:
             result_gender = f"{random.choice(['špatně! Měl být', 'nesprávně! Měl být'])} {de_gender_visi}"
             show_answer = True
             correct_asnwer = False
-    else:
-        answer_gender = ""
 
 
     # rest of the word
@@ -71,7 +67,7 @@ def answer_checker(answer, question_type, cz, cz_visi, de, de_gender, de_gender_
     cz_visi = bold(underline(cz_visi) if question_type != "cz" else cz_visi)
     de_visi = bold(underline(de_visi) if question_type != "de" else de_visi)
 
-    return result, show_answer, cz_visi, de_visi, correct_asnwer
+    return result_gender, result, show_answer, cz_visi, de_visi, correct_asnwer
 
 ########
 #if result_gender is not None:

@@ -12,11 +12,7 @@
 #import json
 #from pathlib import Path
 #import csv
-import datetime
+#import datetime
 
-date = datetime.date(2026, 2, 23)
-
-timeanddate = datetime.datetime.now()
-timeanddate = timeanddate.strftime("%H:%M:%S, %Y-%m-%d")
-
-print(timeanddate)
+test = ""
+print(len(test.split(" ", 1)) >= 2)
