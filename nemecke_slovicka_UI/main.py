@@ -16,7 +16,7 @@ class MainWindow(QMainWindow):
         super().__init__()
         self.setWindowTitle("Německá slovíčka")
         self.setGeometry(500, 300, 750, 400)
-        self.setWindowIcon(QIcon(r"icon.png"))
+        self.setWindowIcon(QIcon(r"icon.ico"))
         self.phase = 0
         self.points = {"correct": 0, "wrong": 0}
         self.drawUI()

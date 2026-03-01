@@ -10,7 +10,7 @@ def resource_path(relative_path):
         return os.path.join(sys._MEIPASS, relative_path)
     return os.path.join(os.path.abspath("."), relative_path)
 
-with open(resource_path("vocabulary.json"), "r", encoding="utf-8") as f:
+with open(resource_path("lekce_2.3.json"), "r", encoding="utf-8") as f:
     lekce = json.load(f)
 
 #with open(f"{Path(__file__).parent}/vocabulary.json", "r", encoding="utf-8") as f:
