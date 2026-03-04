@@ -1,44 +1,33 @@
-import json
+# import json
 import random
 #from pathlib import Path
-import sys
-import os
+# import sys
+# import os
 from htmlStyleLite import *
+import lesson_manager as lm
 
-def resource_path(relative_path):
-    if hasattr(sys, "_MEIPASS"):
-        return os.path.join(sys._MEIPASS, relative_path)
-    return os.path.join(os.path.abspath("."), relative_path)
+#def resource_path(relative_path):
+#   if hasattr(sys, "_MEIPASS"):
+#       return os.path.join(sys._MEIPASS, relative_path)
+#   return os.path.join(os.path.abspath("."), relative_path)
+#
+#with open(resource_path("lekce_2.3.json"), "r", encoding="utf-8") as f:
+#   lekce = json.load(f)
 
-with open(resource_path("lekce_2.3.json"), "r", encoding="utf-8") as f:
-    lekce = json.load(f)
+#       print(json.dumps(lekce["strana_77"], indent=4, ensure_ascii=False))
 
 #with open(f"{Path(__file__).parent}/vocabulary.json", "r", encoding="utf-8") as f:
 #    lekce = json.load(f)
-unit_2_3 = []
-for strana in lekce.values():
-    for slovo in strana:
-        unit_2_3.append(slovo)
-unit_2_3_copy = unit_2_3.copy()
+#lessons = []
+#for strana in loaded_lessons.values():
+#    for slovo in strana:
+#        lessons.append(slovo)
 
-#question_type = None
-#word = None
-#cz = None
-#de_visi = None
-#cz_visi = None
-#de = None
-#de_gender = None
-#de_gender_visi = None
-#description = None
-
-def choose_word():
+def choose_word(LessonMan):
     question_type = random.choice(["cz", "de"])
 
-    global unit_2_3_copy
-    if not unit_2_3_copy:
-        unit_2_3_copy = unit_2_3.copy()
-    word = random.choice(unit_2_3_copy)
-    unit_2_3_copy.remove(word)
+    word = random.choice(LessonMan.lessons_copy)
+    LessonMan.lessons_copy_remove(word)
 
     cz = word.get("cz")
     cz_visi = bold(", ".join(cz))
@@ -63,7 +52,3 @@ def choose_word():
     description = word.get("description")
 
     return question_type, cz, cz_visi, de, de_gender, de_gender_visi, de_visi, description
-
-
-if __name__ == "__main__":
-    print(choose_word())

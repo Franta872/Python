@@ -1,15 +1,16 @@
 import vocabulary_selector as vc
 import checker
+import lesson_manager as lm
 
 import sys
-import string
-import random
 from PyQt6.QtWidgets import (QApplication, QMainWindow, QLabel, QWidget,
                             QGridLayout, QVBoxLayout, QHBoxLayout, QPushButton,
-                            QSizePolicy, QRadioButton, QButtonGroup, QLineEdit,
-                            QSlider)
+                            QSizePolicy, QButtonGroup, QLineEdit)
 from PyQt6.QtGui import QIcon
 from PyQt6.QtCore import Qt
+
+LessonMan = lm.LessonManager("lessons")
+lessons = LessonMan.load_lessons(LessonMan.get_available_lessons())
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -97,7 +98,7 @@ class MainWindow(QMainWindow):
                 self.output()
 
     def input(self):
-        question_type, cz, cz_visi, de, de_gender, de_gender_visi, de_visi, description = vc.choose_word()
+        question_type, cz, cz_visi, de, de_gender, de_gender_visi, de_visi, description = vc.choose_word(LessonMan)
         self.vars = {
             "question_type": question_type,
             "cz": cz,
@@ -142,10 +143,7 @@ class MainWindow(QMainWindow):
     
     def hideResultsText(self):
         self.results.setVisible(not self.results.isVisible())
-        if self.results.isVisible():
-            self.hideButton.setText("Skrýt")
-        else:
-            self.hideButton.setText("Zobrazit")
+        self.hideButton.setText("Skrýt" if self.results.isVisible() else "Zobrazit")
 
 
 def main():
