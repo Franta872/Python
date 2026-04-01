@@ -14,5 +14,5 @@
 #import csv
 #import datetime
 
-test = ""
-print(len(test.split(" ", 1)) >= 2)
+x = 123
+str(x).count("1")
