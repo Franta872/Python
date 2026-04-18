@@ -19,11 +19,18 @@ for x, i in zip(equation[1:-1], range(1, len(equation)-1)):
         num = True
     if not (equation[i+1].isdecimal() or equation[i+1] == ".") and num: # end number
         num = False
-        listEqu.append(int(equation[start:i+1]) if equation[start:i+1].isdecimal() else float(equation[start:i+1]))
+        #thisNum = equation[start-1:i+1] if equation[start-1] in ["+", "-"] and equation[start-2] == "(" else equation[start:i+1]
+        if equation[start-1] in ["+", "-"] and equation[start-2] == "(":
+            listEqu.pop(-1)
+            thisNum = equation[start-1:i+1]
+        else:
+            thisNum = equation[start:i+1]
+        
+        listEqu.append(int(thisNum) if equation[start:i+1].isdecimal() else float(thisNum))
         start = None
 
 # finding max. level of parentheses
-
+print(listEqu)
 # PH == parentheses
 maxPH = 0
 if "(" in listEqu and ")" in listEqu:
